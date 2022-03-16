@@ -1,2 +1,2 @@
 *.Smalltalk linguist-detectable=false
-*.ST linguist-detectable=true 
+*.python linguist-detectable=true 
