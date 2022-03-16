@@ -13,7 +13,8 @@ d) Běží-li proces, lze jej kdykoliv zastavit tlačítkem Start/Stop. Po jeho 
 
 - [x] Zakladní fungování akčních prvků
 - [ ] **Funkční** display
-- [ ] Uhlazení programu
+- [ ] Uhlazený program
+- [ ] Obhajoba práce
 
 # Licence
 Veškerý obsah v tomto repozitáři je licencován pod [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs)
