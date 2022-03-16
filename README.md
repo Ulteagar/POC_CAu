@@ -11,4 +11,4 @@ d) Běží-li proces, lze jej kdykoliv zastavit tlačítkem Start/Stop. Po jeho 
 
 # Licence
 Veškerý obsah na této stránce je licencován pod Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
-![Test](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+![Test](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
