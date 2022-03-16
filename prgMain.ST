@@ -17,7 +17,7 @@ tlacitkoStolu at %X100.5:BOOL;                                         //tlacitk
 tlacitkoPist2 at  %X100.4:BOOL;                                        //tlacitko pod lisem
 tlacitkoDopravniku at %X100.1:BOOL;                                    //tlacitko u dopravniku
 pocetVyrobku: UDINT := 0;
-pomSTTrig: USINT := 2;
+pomSTTrig: USINT := 0;
 pomocnaStav:USINT;
 //prnt at %R1:array[0..79] of USINT;
 END_VAR
@@ -35,21 +35,23 @@ Casovac1,Casovac2:TOF;
 Zpozdovac1,Zpozdovac2,Zpozdovac3,Zpozdovac4:TON;
 pomStart,pomPist1,pomPist2,pomMotorS,pom1,pom3,pom5,pom6,pom7,pom9,pom10,pom11,pom12,pom13,pom14,pom15,pom16,pom17,pom18,pomZap,pomses,pomStop,pomPist1kon,pomZpozdeni,pomHotovo,pomHotovo2,pomHotovo3,pomDonePist1,pomTlacPist2,pomTlacDoublePist3,pomNeco,pomPozastav:BOOL; //pomocne promenne
 END_VAR
+
 if pomStart = false then
-pomocnaStav:=0;
-pomHotovo2:=false;
+pomocnaStav:=0;                                                       //zobrazuje na display PLC "Stisknete tlacitko"
+pomHotovo2:=false;                                                    //nuluje mezipamet
 end_if;
+
 nabez1(CLK:=StartStop,Q=>pom1);
 
 if pom1 then
 pomStart:=pomStart xor pom1;                                           //vypinani a zapinani linky
-pomocnaStav:=1;
+pomocnaStav:=1;                                                        //zobrazuje na display PLC "Vlozte obrobek"
 pomSTTrig:=pomSTTrig + 1;
 end_if;
 
-(*if (pomSTTrig MOD 2)=0 then;
-pomocnaStav:=4;
-pomPozastav:=true;
+(*if (pomSTTrig MOD 2)=0 then;                                         //kazde druhe stisknuti spusti podminku
+pomocnaStav:=4;                                                        //obrazuje na display PLC "Pozastaveno"
+pomPozastav:=true;                                                     //zaznam o pozastaveni linky
 pomSTTrig:=1;
 end_if;  *)
 
@@ -75,8 +77,8 @@ Zpozdovac1(IN:= not Dioda1 and pomStart and Dioda2 and tlacitkoStolu,PT:= T#2s,Q
 kompr:= pom3;                                                          //zapnuti kompresoru
 Pist1:= kompr;                                                         //zapnuti pneumatickeho lisu (Pist1), ktery vysune obrobek na otocny stul
 
-if Pist1 = true then                                                   //blbuvydornost pri startu Pistu2
-pomPist1kon:= true;
+if Pist1 = true then                                                   //blbuvzdornost pri startu Pistu2
+pomPist1kon:= true;                                                    //zaznamenani akce do pameti
 end_if;
 
 Zpozdovac2(IN:= pomMotorS,PT:= T#3s,Q=>pom5,ET=>data);                 //zpozdeny start 3s
@@ -92,7 +94,7 @@ DvoucinnyPist2:=false;                                                 //nulovan
 pom11:= true;                                                          //zaznamenani o probehlem spusteni pistu (Pist2)
 pom10:=false;                                                          //blokace motoru otoc. stolu
 pom7:=false;                                                           //blokace motoru otoc. stolu
-pomTlacPist2:=true;
+pomTlacPist2:=true;                                                    //zaznamenani akce do pameti
 end_if;
 
 Zpozdovac3(IN:= tlacitkoPist2 and pomStart,PT:= T#5s,Q=>pom9,ET=>data);//zpozdene zapnuti 5s
@@ -110,7 +112,7 @@ elsif pom17 and pomStart and Dioda2 then                               //zda-li 
 kompr:=true;
 DvoucinnyPist1:=false;                                                 //zapnuti kompresoru
 DvoucinnyPist2:= true;                                                 //zapnuti dvoucinneho pneumatickeho lisu (DvoucinnyPist2)
-pomTlacDoublePist3:=true;
+pomTlacDoublePist3:=true;                                              //zaznamenani akce do pameti
 pom11:=false;
 pom14:=false;                                                          //blokace predchozi podminky, aby se znovu nespustil otoc. stul, kdyz obrobek uz netlaci na tlacitkoStolu
 pom16:=true;                                                           //zaznam o probehle akci
@@ -124,29 +126,29 @@ MotorDopravniku:= true;
 
 SestuptlacitkoDopravniku(clk:=tlacitkoDopravniku,Q=>pom18);            //zaznam sestupne hrany
 
-elsif pom18 then                                                       //
+elsif pom18 then                                                       //pote co se obrobek odebere na pas, vypne kompresor
 kompr:=false;
-                                                                       //kdyz obrobek stoji ve svetelne zavore, tak vypina motor dopravniku a kompresor
-elsif not Dioda2 then
+
+elsif not Dioda2 then                                                  //kdyz obrobek stoji ve svetelne zavore, tak vypina motor dopravniku a kompresor
 MotorDopravniku:= false;
 pom16:=false;
 pom6:=pomHotovo;
 end_if;
 
-nebezHotovo(clk:= not Dioda2,Q=>pomHotovo);
+nebezHotovo(clk:= not Dioda2,Q=>pomHotovo);                            //1 zaznam o vyskytu obrobku ve druhe svetelne zavore (Dioada2)
 
 if pom6 and pomTlacDoublePist3 and pomTlacPist2 and pomDonePist1 and not Dioda2 and not pomPozastav then
-pocetVyrobku:=pocetVyrobku+1;
-pomocnaStav:=2;
+pocetVyrobku:=pocetVyrobku+1;                                          //pripocteni +1 k obrobenych obrobku
+pomocnaStav:=2;                                                        //zobrazuje na display PLC "Odeberte obrobek"
 pomHotovo2:=true;
 end_if;
 
-if pomStart and pomPozastav then
+*(if pomStart and pomPozastav then
 pomocnaStav:=2;
 pomHotovo2:=true;
-end_if;
+end_if;*)
 
-if pomHotovo2 and Dioda2 then
+if pomHotovo2 and Dioda2 then                                          //nulovani pameti
 pomStart:=false;
 pomTlacDoublePist3:=false;
 pomTlacPist2:=false;
@@ -160,7 +162,7 @@ pomocnaStav:=1;
 pomHotovo2:=false;
 end_if;*)
 
-if pomStart and not Dioda1 then
+if pomStart and not Dioda1 then                                        //zobrazuje na display PLC "_"
 pomocnaStav:=3;
 end_if;
 
