@@ -25,7 +25,8 @@
      - [x] Zobrazení textu na display
      - [ ] Správné zobrazování textu (Vložte obrobek, Odeberte obrobek, atd.)
 - [ ] Uhlazený program
-     - [ ] Přidání funkcí do programu a zkrátit funkci main
+     - [ ] Přidání funkcí do programu
+     - [ ] Zkrátit funkci main
      - [ ] Zredukování pomocných proměnných
 - [ ] Obhajoba práce
 
