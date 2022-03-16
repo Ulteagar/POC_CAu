@@ -18,7 +18,7 @@
      - [x] Dvoučinný píst (tam i zpět)
      - [x] Dopravní pás
 - [x] Pokročilé fungování akčních prvků
-     - [+-] Zastavení linky kdykoliv
+     - [x] Zastavení linky kdykoliv
      - [x] Počítání obrobených obrobků
      - [ ] Nezapočítání pozastavených objektů
 - [ ] **Funkční** display
