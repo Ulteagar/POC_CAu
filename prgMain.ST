@@ -57,7 +57,7 @@ if tlacitkoStolu = false and pomStart = true then MotorStolu:= true;   //pocatec
 elsif tlacitkoStolu = true then MotorStolu:= false;
 end_if;
 
-if not Dioda1 and pomStart and Dioda2 then                             //podminka pro spusteni Pist1, kdyz je vlozen obrobek a je odebr·n obrobek z dopravnÌku
+if not Dioda1 and pomStart and Dioda2 then                             //podminka pro spusteni Pist1, kdyz je vlozen obrobek a je odebr√°n obrobek z dopravn√≠ku
 pom10:= true;                                                          //pomocna pro zaznamenani aktivace casovace se zpozdenim 2s
 
 elsif Pist1 = true then
@@ -163,8 +163,6 @@ end_if;*)
 if pomStart and not Dioda1 then
 pomocnaStav:=3;
 end_if;
-
-(**********************************************************po sem funkcni**********************************************************)
 
 (*if pom6 = true then
 pomStart:=false;
