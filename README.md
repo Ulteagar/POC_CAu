@@ -12,7 +12,7 @@ d) Běží-li proces, lze jej kdykoliv zastavit tlačítkem Start/Stop. Po jeho 
 # Stav projektu
 
 - [x] Zakladní fungování akčních prvků
-- [-] **Funkční** display
+- [ ] **Funkční** display
 - [ ] Uhlazení programu
 
 # Licence
