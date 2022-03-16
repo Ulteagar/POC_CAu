@@ -12,21 +12,21 @@
 # Stav projektu
 
 - [x] Zakladní fungování akčních prvků
-      - [x] Píst 1
-      - [x] Otočný stůl
-      - [x] Píst 2
-      - [x] Dvoučinný píst (tam i zpět)
-      - [x] Dopravní pás
+     - [x] Píst 1
+     - [x] Otočný stůl
+     - [x] Píst 2
+     - [x] Dvoučinný píst (tam i zpět)
+     - [x] Dopravní pás
 - [x] Pokročilé fungování akčních prvků
-      - [+-] Zastavení linky kdykoliv
-      - [x] Počítání obrobených obrobků
-      - [ ] Nezapočítání pozastavených objektů
+     - [+-] Zastavení linky kdykoliv
+     - [x] Počítání obrobených obrobků
+     - [ ] Nezapočítání pozastavených objektů
 - [ ] **Funkční** display
-      - [x] Zobrazení textu na display
-      - [ ] Správné zobrazování textu (Vložte obrobek, Odeberte obrobek, atd.)
+     - [x] Zobrazení textu na display
+     - [ ] Správné zobrazování textu (Vložte obrobek, Odeberte obrobek, atd.)
 - [ ] Uhlazený program
-      - [ ] Přidání funkcí do programu a zkrátit funkci main
-      - [ ] Zredukování pomocných proměnných
+     - [ ] Přidání funkcí do programu a zkrátit funkci main
+     - [ ] Zredukování pomocných proměnných
 - [ ] Obhajoba práce
 
 # Licence
