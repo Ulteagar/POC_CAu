@@ -10,5 +10,5 @@ c) Po spuštění program čeká na stisk tlačítka Start/Stop. Po jeho stisknu
 d) Běží-li proces, lze jej kdykoliv zastavit tlačítkem Start/Stop. Po jeho stisknutí se všechny akční členy zastaví a program čeká na ruční odebrání obrobku. Dále program čeká na další stisknutí tlačítka Start/Stop pro zpracování dalšího obrobku. Obrobek, jehož zpracování bylo zastaveno se do opracovaných obrobků nepočítá.
 
 # Licence
-Veškerý obsah na této stránce je licencován pod Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
-![Test](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
+Veškerý obsah na této stránce je licencován pod [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+![](https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png)
