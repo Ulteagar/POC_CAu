@@ -15,7 +15,7 @@ glob_Dioda2 at %X100.0:BOOL;                                           //sveteln
 glob_Start_Stop at %X100.7:BOOL;                                       //tlacitko start-stop
 glob_TrigStolu at %X100.5:BOOL;                                        //tlacitko, ktere stiskava otoc. stul
 glob_tlacitkoPist2 at  %X100.4:BOOL;                                   //tlacitko pod lisem
-glob_tlacitkoDopravniku at %X100.1:BOOL;                               //tlacitko u dopravniku
+glob_TlacitkoDopravniku at %X100.1:BOOL;                               //tlacitko u dopravniku
 
 pocetVyrobku: UDINT := 0;
 pomSTTrig: USINT := 0;
@@ -44,11 +44,11 @@ END_VAR
 
 nabezna(CLK := talcitko,Q => stisknuto);
 
-glob_KillSwitch := stisknuto;
+glob_KillSwitch := glob_KillSwitch XOR stisknuto;
 
 IF glob_TrigStolu = FALSE AND glob_KillSwitch = TRUE THEN
 vystup := TRUE;
-ELSIF glob_TrigStolu = TRUE AND glob_KillSwitch = TRUE THEN
+ELSIF glob_TrigStolu = TRUE THEN
 vystup := FALSE;
 END_IF;
 
@@ -72,8 +72,9 @@ END_VAR
 
 nabezna(CLK := talcitko,Q => stisknuto);
 
-IF stisknuto = TRUE THEN
 vystup := vystup XOR stisknuto;
+
+IF vystup = FALSE THEN
 pomocnaStav:=4;                                                        //obrazuje na display PLC "Pozastaveno"
 END_IF;
 
@@ -94,16 +95,14 @@ vystup3:BOOL;
 END_VAR
 
 VAR
-data:TIME;
 zapnuto:BOOL;
 zpozdovac:TON;
 END_VAR
 
-zpozdovac1(IN := glob_KillSwitch AND glob_TrigStolu AND NOT dioda1 AND dioda2,PT := T#2s,Q => zapnuto,ET => data);
+zpozdovac1(IN := glob_KillSwitch AND glob_TrigStolu AND NOT dioda1 AND dioda2,PT := T#2s,Q => zapnuto);
 vystup1 := zapnuto;
 vystup2 := zapnuto;
-zpozdovac2(IN := glob_KillSwitch AND dioda1 AND dioda2 AND NOT glob_TlacitkoPist2,PT := T#3s,Q => vystup3,ET => data);
-END_IF;
+zpozdovac2(IN := glob_KillSwitch AND dioda1 AND dioda2 AND NOT glob_TlacitkoPist2,PT := T#3s,Q => vystup3);
 
 END_FUNCTION_BLOCK
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -121,15 +120,57 @@ vystup3:BOOL;
 END_VAR
 
 VAR
-data:TIME;
 zapnuto:BOOL;
 zpozdovac:TON;
 END_VAR
 
-zpozdovac(IN := glob_TlacitkoPist2 AND glob_KillSwitch,PT := T#5s,Q => zapnuto,ET => data);
-vystup1 := not zapnuto;
-vystup2 := not zapnuto;
-vystup3 := not zapnuto;
+IF tlacitko = TRUE THEN
+zpozdovac(IN := glob_KillSwitch AND glob_TlacitkoPist2,PT := T#5s,Q => zapnuto);
+vystup1 := zapnuto;
+vystup2 := zapnuto;
+vystup3 := zapnuto;
+END_IF;
+
+END_FUNCTION_BLOCK
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+fb_PoziceDopravnik
+
+VAR_INPUT
+pist:BOOL;
+END_VAR
+
+VAR_OUTPUT
+vystup:BOOL;
+END_VAR
+
+VAR
+vypnut,zapnuto:BOOL;
+zpozdovac:TON;
+sestupna:F_TRIG;
+nabezna:R_TRIG;
+END_VAR
+
+sestupna(CLK := pist,Q => vypnut);
+
+IF vypnut = TRUE THEN
+glob_MotorStolu := TRUE;
+ELSIF glob_TlacitkoDopravniku = TRUE THEN
+glob_MotorStolu := FALSE;
+END_IF;
+
+zpozdovac(IN := glob_KillSwitch AND glob_TlacitkoDopravniku AND glob_Dioda2,PT := T#1s,Q => vystup);
+
+nabezna(CLK := vystup,Q => zapnuto);
+
+IF zapnuto AND glob_Dioda2 THEN
+glob_Kompresor := FALSE;
+glob_MotorDopravniku := TRUE;
+ELSIF glob_KillSwitch AND NOT glob_Dioda2 THEN
+glob_MotorDopravniku := FALSE;
+//pocetVyrobku:= pocetVyrobku + 1;
+pomocnaStav:=2;                                                        //zobrazuje na display PLC "Odeberte obrobek"
+END_IF;
 
 END_FUNCTION_BLOCK
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -140,5 +181,6 @@ fb_VychoziStav(glob_Start_Stop := tlacitko,vystup := glob_MotorStolu);
 fb_VypnouLinku(glob_Start_Stop := tlacitko,vystup := glob_KillSwitch);
 fb_PozicePist1(glob_Dioda1 := dioda1,glob_Dioda2 := dioda2,glob_Kompresor := vystup1,glob_Pist1 := vystup2,glob_MotorStolu := vystup3);
 fb_PoziceLis(glob_TlacitkoPist2 := tlacitko,glob_Kompresor := vystup1,glob_Pist2 := vystup2,glob_DvoucinnyPist1 := vystup3);
+fb_PoziceDopravnik(glob_Pist2 := pist,);
 
 END_PROGRAM
