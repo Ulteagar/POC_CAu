@@ -11,15 +11,15 @@
 
 # Stav projektu
 
-- [ ] Zakladní fungování akčních prvků
+- [x] Zakladní fungování akčních prvků
      - [x] Píst 1
      - [x] Otočný stůl
      - [x] Píst 2
-     - [ ] Dvoučinný píst (tam i zpět)
-     - [ ] Dopravní pás
+     - [x] Dvoučinný píst (tam i zpět)
+     - [x] Dopravní pás
 - [ ] Pokročilé fungování akčních prvků
      - [x] Zastavení linky kdykoliv
-     - [ ] Počítání obrobených obrobků
+     - [x] Počítání obrobených obrobků
 - [ ] **Funkční** display
      - [x] Zobrazení textu na display
      - [ ] Správné zobrazování textu (Vložte obrobek, Odeberte obrobek, atd.)
