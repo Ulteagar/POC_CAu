@@ -17,12 +17,12 @@
      - [x] Píst 2
      - [x] Dvoučinný píst (tam i zpět)
      - [x] Dopravní pás
-- [ ] Pokročilé fungování akčních prvků
+- [x] Pokročilé fungování akčních prvků
      - [x] Zastavení linky kdykoliv
      - [x] Počítání obrobených obrobků
-- [ ] **Funkční** display
+- [x] **Funkční** display
      - [x] Zobrazení textu na display
-     - [ ] Správné zobrazování textu (Vložte obrobek, Odeberte obrobek, atd.)
+     - [x] Správné zobrazování textu (Vložte obrobek, Odeberte obrobek, atd.)
 - [x] Uhlazený program
      - [x] Přidání funkcí do programu
      - [x] Zkrátit funkci main
