@@ -1,0 +1,5 @@
+Vložte obrobek
+Odeberte obrobek
+Pozastaveno
+Probíhá...
+[mazera]
