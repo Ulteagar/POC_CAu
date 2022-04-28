@@ -9,25 +9,6 @@
 
 ***d)*** Běží-li proces, lze jej kdykoliv zastavit tlačítkem Start/Stop. Po jeho stisknutí se všechny akční členy zastaví a program čeká na ruční odebrání obrobku. Dále program čeká na další stisknutí tlačítka Start/Stop pro zpracování dalšího obrobku. Obrobek, jehož zpracování bylo zastaveno se do opracovaných obrobků nepočítá.
 
-# Stav projektu
-
-- [x] Zakladní fungování akčních prvků
-     - [x] Píst 1
-     - [x] Otočný stůl
-     - [x] Píst 2
-     - [x] Dvoučinný píst (tam i zpět)
-     - [x] Dopravní pás
-- [x] Pokročilé fungování akčních prvků
-     - [x] Zastavení linky kdykoliv
-     - [x] Počítání obrobených obrobků
-- [x] **Funkční** display
-     - [x] Zobrazení textu na display
-     - [x] Správné zobrazování textu (Vložte obrobek, Odeberte obrobek, atd.)
-- [x] Uhlazený program
-     - [x] Přidání funkcí do programu
-     - [x] Zkrátit funkci main
-     - [x] Zredukování pomocných proměnných
-
 # Licence
 Veškerý obsah v tomto repozitáři je licencován pod [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.cs)
 
