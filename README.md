@@ -1,5 +1,5 @@
 # Zadání
-## Pneumatické obráběcí centrum
+Pneumatické obráběcí centrum
 
 ***a)*** Cílem práce je realizovat připojení sestavené stavebnice pneumatické obráběcí centrum Fischertechnik 24V k PLC Tecomat Foxtrot a naprogramovat obsluhu pracoviště podle následujících kroků.
 
