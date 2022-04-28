@@ -1,21 +1,21 @@
 VAR_GLOBAL
 
 //OUTPUT
-glob_Pist1 at %Y33.1:BOOL;                                             //pist pod otvorem na vlozeni obrobku
-glob_Pist2 at %Y33.0:BOOL;                                             //pist pro lisovani obrobku
-glob_Kompresor at %Y33.2:BOOL;                                         //kompresor
-glob_MotorStolu at %Y32.5:BOOL;                                        //motor otocneho stolu
-glob_DvojcinnyPist1 at %Y32.6:BOOL;                                    //vysunuti dvoucinneho pistu nad dopravnikem
-glob_DvojcinnyPist2 at %Y32.7:BOOL;                                    //zasunuti dvoucinneho pistu nad dopravnikem
+glob_Pist1 at %Y33.1:BOOL;
+glob_Pist2 at %Y33.0:BOOL;
+glob_Kompresor at %Y33.2:BOOL;
+glob_MotorStolu at %Y32.5:BOOL;
+glob_DvojcinnyPist1 at %Y32.6:BOOL;
+glob_DvojcinnyPist2 at %Y32.7:BOOL;
 glob_MotorDopravniku at %Y32.4:BOOL;
 
 //INPUT
-glob_Dioda1 at %X100.6:BOOL;                                           //svetelna zavora pod otvorem na vlozeni obrobku
-glob_Dioda2 at %X100.0:BOOL;                                           //svetelna zavora na dopravniku
-glob_Start_Stop at %X100.7:BOOL;                                       //tlacitko start-stop
-glob_TrigStolu at %X100.5:BOOL;                                        //tlacitko, ktere stiskava otoc. stul
-glob_tlacitkoPist2 at  %X100.4:BOOL;                                   //tlacitko pod lisem
-glob_TlacitkoDopravniku at %X100.1:BOOL;                               //tlacitko u dopravniku
+glob_Dioda1 at %X100.6:BOOL;
+glob_Dioda2 at %X100.0:BOOL;
+glob_Start_Stop at %X100.7:BOOL;
+glob_TrigStolu at %X100.5:BOOL;
+glob_tlacitkoPist2 at  %X100.4:BOOL;
+glob_TlacitkoDopravniku at %X100.1:BOOL;
 
 pocetVyrobku: UDINT := 0;
 pomocnaStav:USINT;
