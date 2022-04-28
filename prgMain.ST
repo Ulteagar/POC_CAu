@@ -19,6 +19,9 @@ glob_TlacitkoDopravniku at %X100.1:BOOL;                               //tlacitk
 
 pocetVyrobku: UDINT := 0;
 pomocnaStav:USINT;
+pomPist1:BOOL;
+pomPist2:BOOL;
+pomPist3:BOOL;
 
 glob_KillSwitch:BOOL;
 
@@ -41,7 +44,7 @@ nabezna(CLK := tlacitko,Q => stisknuto);
 glob_KillSwitch := glob_KillSwitch XOR stisknuto;
 
 IF stisknuto = TRUE THEN
- pomocnaStav:=0;
+ pomocnaStav := 0;
 END_IF;
 
 IF NOT glob_TrigStolu AND glob_KillSwitch THEN
@@ -75,9 +78,10 @@ END_IF;
 
 zpozdovac1(IN := NOT dioda1,PT := T#2s0ms,Q => zapnuto1);
 
-IF zapnuto1 = TRUE THEN
+IF zapnuto1 AND glob_TrigStolu and glob_Dioda2 THEN
  glob_Kompresor := TRUE;
  glob_Pist1 := TRUE;
+ pomPist1 := TRUE;
  pomocnaStav:=3;
 ELSE
  glob_Kompresor := FALSE;
@@ -86,8 +90,10 @@ END_IF;
 
 sestup(CLK := glob_Pist1,Q => probehlo);
 
-if probehlo then;
-   pom:=TRUE;
+IF probehlo THEN;
+   pom := TRUE;
+ELSIF glob_Start_Stop AND pom THEN
+   pom:=FALSE;
 END_IF;
 
 zpozdovac2(IN := pom,PT := T#3s0ms,Q => zapnuto2);
@@ -117,6 +123,7 @@ zapnuto,probehlo,pom:BOOL;
 END_VAR
 
 IF tlacitko = TRUE THEN
+ pomPist2:= TRUE;
  casovac(IN := glob_KillSwitch AND glob_TlacitkoPist2,PT := T#5s0ms,Q => zapnuto);
  glob_Kompresor := zapnuto;
  glob_Pist2 := zapnuto;
@@ -129,6 +136,8 @@ sestup(CLK := glob_Pist2,Q => probehlo);
 
 IF probehlo THEN;
  pom := TRUE;
+ELSIF glob_Start_Stop AND pom then
+ pom:=FALSE;
 END_IF;
 
 IF pom AND glob_KillSwitch THEN
@@ -156,6 +165,7 @@ nabez:R_TRIG;
 END_VAR
 
 IF tlacitko = TRUE THEN
+ pomPist3 := TRUE;
  glob_MotorDopravniku := TRUE;
 END_IF;
 
@@ -172,7 +182,7 @@ IF glob_Dioda2 = FALSE THEN
  glob_MotorDopravniku := FALSE;
 END_IF;
 
-IF konec = TRUE THEN
+IF konec AND pomPist1 AND pomPist2 AND pomPist3 THEN
  pomocnaStav := 1;
  pocetVyrobku := pocetVyrobku + 1;
  pom := TRUE;
@@ -188,6 +198,9 @@ END_FUNCTION_BLOCK
 
 FUNCTION kill : BOOL
          glob_Pist1           :=0;
+         pomPist1             :=0;
+         pomPist2             :=0;
+         pomPist3             :=0;
          glob_Pist2           :=0;
          glob_Kompresor       :=0;
          glob_MotorStolu      :=0;
